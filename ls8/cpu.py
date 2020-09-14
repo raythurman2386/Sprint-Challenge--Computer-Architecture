@@ -87,6 +87,24 @@ class CPU:
         self.alu('CMP', op1, op2)
         return (3, True)
 
+    def jne(self, op1, op2):
+        if self.flags['E'] == 0:
+            self.pc = self.reg[op1]
+            return (0, True)
+        else:
+            return(2, True)
+
+    def jeq(self, op1, op2):
+        if self.flags['E'] == 1:
+            self.pc = self.reg[op1]
+            return (0, True)
+        else:
+            return (2, True)
+
+    def jmp(self, op1, op2):
+        self.pc = self.reg[op1]
+        return (0, True)
+
     def ram_read(self, address):
         if address < len(self.ram):
             return self.ram[address]
